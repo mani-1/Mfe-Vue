@@ -3,6 +3,7 @@ const { VueLoaderPlugin } = require("vue-loader");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { ModuleFederationPlugin } = require("webpack").container;
+
 module.exports = (env = {}) => ({
   mode: "development",
   cache: false,
@@ -16,14 +17,7 @@ module.exports = (env = {}) => ({
     publicPath: "auto",
   },
   resolve: {
-    extensions: [".vue", ".jsx", ".js", ".json"],
-    alias: {
-      // this isn't technically needed, since the default `vue` entry for bundlers
-      // is a simple `export * from '@vue/runtime-dom`. However having this
-      // extra re-export somehow causes webpack to always invalidate the module
-      // on the first HMR update and causes the page to reload.
-      vue: "@vue/runtime-dom",
-    },
+    extensions: [".vue", ".jsx", ".js", ".json"]
   },
   module: {
     rules: [
@@ -60,13 +54,13 @@ module.exports = (env = {}) => ({
       remotes: {
         home: "home@http://localhost:3002/remoteEntry.js",
       },
-      exposes: {},
+      shared: require("./package.json").dependencies
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./index.html"),
       chunks: ["main"],
     }),
-    new VueLoaderPlugin(),
+    new VueLoaderPlugin()
   ],
   devServer: {
     static: {

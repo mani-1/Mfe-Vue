@@ -2,14 +2,13 @@
   <div class="layout-app">
     <!-- host app HOST-->
     <div class="app-label">
-      # Hosting App [HOST]
+      # Layout App  [HOST]
     </div>
     <img src="./logo.png" width="30" />
-    <h1>Layout App 1</h1>
     <div class="remote-component">
       <!-- remote-component REMOTE -->
       <div class="app-label">
-        #remote-component [REMOTE]
+        # Home App [REMOTE]
       </div>
       <content-element />
       <button-element />
